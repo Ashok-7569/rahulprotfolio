@@ -1,104 +1,102 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Shield, Lock, Database } from "lucide-react";
+import { ExternalLink, Shield, Lock, Database, ArrowRight } from "lucide-react";
+import DecorativeShapes from "./DecorativeShapes";
 
 const Projects = () => {
+  const categories = ["All Projects", "Web Design", "Mobile Apps", "Blockchain"];
+
   const projects = [
     {
-      title: "Blockchain-Based Autonomous Notarization System",
-      description:
-        "A secure and transparent notarization system leveraging blockchain technology and digital identity verification using National eID Cards. This system ensures tamper-proof document verification and automated notary services.",
-      technologies: ["Blockchain", "Smart Contracts", "Digital Identity", "Security"],
+      title: "Blockchain Notarization System",
+      description: "Secure document verification using blockchain and National eID",
+      category: "Blockchain",
       icon: Shield,
-      features: [
-        "Decentralized document storage",
-        "Smart contract automation",
-        "eID card integration",
-        "Immutable audit trails",
-      ],
+      gradient: "from-primary to-purple-600",
     },
     {
-      title: "Full Stack Web Application",
-      description:
-        "Developed a comprehensive web application using Java Spring Boot for backend services and React.js for the frontend. Implemented RESTful APIs, database integration with MySQL, and responsive UI design.",
-      technologies: ["Java", "Spring Boot", "React.js", "MySQL", "REST API"],
+      title: "Full Stack E-Commerce",
+      description: "Modern shopping platform with Spring Boot & React",
+      category: "Web Design",
       icon: Database,
-      features: [
-        "RESTful API architecture",
-        "JWT authentication",
-        "Responsive design",
-        "Database optimization",
-      ],
+      gradient: "from-accent to-orange-600",
     },
     {
-      title: "Secure Authentication System",
-      description:
-        "Built a robust authentication and authorization system with JWT tokens, role-based access control, and secure password hashing using industry-standard encryption methods.",
-      technologies: ["Java", "Spring Security", "JWT", "MySQL"],
+      title: "Authentication Platform",
+      description: "JWT-based secure auth with role management",
+      category: "Web Design",
       icon: Lock,
-      features: [
-        "JWT token management",
-        "Role-based access control",
-        "Password encryption",
-        "Session management",
-      ],
+      gradient: "from-secondary to-yellow-500",
     },
   ];
 
   return (
-    <section id="projects" className="py-20">
+    <section id="projects" className="py-20 bg-muted/30 relative overflow-hidden">
+      <DecorativeShapes variant="section" />
+      
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
-            <div className="h-1 w-20 gradient-primary mx-auto rounded-full"></div>
+            <p className="text-primary font-bold uppercase tracking-wider text-sm mb-2">PORTFOLIO</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Featured Project Showcases
+            </h2>
           </div>
 
+          {/* Category Tabs */}
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {categories.map((cat, idx) => (
+              <Button
+                key={idx}
+                variant={idx === 0 ? "default" : "outline"}
+                className={idx === 0 ? "gradient-primary text-white rounded-full" : "rounded-full"}
+              >
+                {cat}
+              </Button>
+            ))}
+          </div>
+
+          {/* Projects Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="shadow-card hover:shadow-hover transition-all hover:scale-105 flex flex-col"
+                className="shadow-card hover:shadow-hover transition-all hover:scale-105 overflow-hidden group"
               >
-                <CardHeader>
-                  <div className="p-3 rounded-lg bg-primary/10 w-fit mb-3">
-                    <project.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl">{project.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <p className="text-foreground/80 mb-4">{project.description}</p>
+                <div className={`h-48 bg-gradient-to-br ${project.gradient} relative flex items-center justify-center`}>
+                  <project.icon className="h-20 w-20 text-white/90" />
                   
-                  <div className="mb-4">
-                    <p className="font-semibold text-sm mb-2">Key Features:</p>
-                    <ul className="space-y-1">
-                      {project.features.map((feature, idx) => (
-                        <li key={idx} className="text-sm text-foreground/70 flex items-start">
-                          <span className="text-primary mr-2">•</span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                  {/* Overlay on hover */}
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <Button variant="secondary" className="rounded-full">
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      View Project
+                    </Button>
                   </div>
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 bg-secondary text-sm rounded-full text-foreground/80"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                </div>
+                
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                  <p className="text-foreground/70 mb-4 text-sm">{project.description}</p>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
+                      {project.category}
+                    </span>
+                    <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
                   </div>
-
-                  <Button variant="outline" className="w-full mt-auto">
-                    <ExternalLink className="mr-2 h-4 w-4" />
-                    View Details
-                  </Button>
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Button variant="outline" className="rounded-full px-8 border-2">
+              View All Projects
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </div>
         </div>
       </div>

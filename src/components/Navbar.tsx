@@ -27,13 +27,13 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/95 backdrop-blur-md shadow-md" : "bg-transparent"
+        isScrolled ? "bg-white/95 backdrop-blur-md shadow-md" : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-5">
         <div className="flex items-center justify-between">
-          <a href="#home" className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
-            KR.
+          <a href="#home" className="text-2xl font-bold text-foreground">
+            Kodi<span className="text-primary">.</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -42,11 +42,14 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-foreground/80 hover:text-primary transition-colors font-medium"
+                className="text-foreground/70 hover:text-primary transition-colors font-medium text-sm"
               >
                 {link.name}
               </a>
             ))}
+            <Button className="gradient-accent text-white rounded-full px-6 shadow-orange hover:shadow-hover">
+              Download CV
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -73,6 +76,9 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
+            <Button className="gradient-accent text-white w-full rounded-full">
+              Download CV
+            </Button>
           </div>
         )}
       </div>
